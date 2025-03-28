@@ -1,11 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
@@ -19,13 +14,19 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             UnitPrice = unitPrice;
             IsCancelled = isCancelled;
             ApplyDiscount(); 
-        }      
+        }
 
+        /// <summary>
+        ///  **
+        /// **
+        /// </summary>
+        public Guid SaleId { get;  set; }
+       
         /// <summary>
         ///  Receive sale number .
         /// Determines Sales identification.
         /// </summary>
-        public long ProductId { get; private set; }
+        public long ProductId { get;  set; }
         /// <summary>
         ///  Receive sale number .
         /// Determines Sales identification.

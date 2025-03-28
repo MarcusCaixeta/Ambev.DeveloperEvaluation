@@ -28,7 +28,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation
 
             RuleFor(item => item.Discount)
                 .InclusiveBetween(0, 0.5m)
-                .WithMessage("Discount must be between 0% and 50%.");
+                .WithMessage("Discount must be between 0% and 50%.");          
         }
     }
 }

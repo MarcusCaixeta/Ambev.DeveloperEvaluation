@@ -36,21 +36,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             // Assert
             Assert.False(result.IsValid);
             Assert.NotEmpty(result.Errors);
-        }
-
-        [Fact(DisplayName = "Total calculation should sum item totals correctly")]
-        public void Given_SaleWithItems_When_CalculateTotal_Then_ShouldReturnCorrectTotal()
-        {
-            // Arrange
-            var sale = SaleTestData.GenerateValidSale();
-            var expectedTotal = sale.Items.Sum(item => item.CalculateTotal());
-
-            // Act
-            var total = sale.CalculateTotal();
-
-            // Assert
-            Assert.Equal(expectedTotal, total);
-        }
+        }     
 
         [Fact(DisplayName = "Sale should be marked as cancelled when Cancel is called")]
         public void Given_Sale_When_Cancel_Then_ShouldBeCancelled()

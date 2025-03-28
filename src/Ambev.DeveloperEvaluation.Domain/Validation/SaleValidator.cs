@@ -17,16 +17,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation
 
             RuleFor(sale => sale.Date)
                 .LessThanOrEqualTo(DateTime.UtcNow)
-                .WithMessage("Sale date cannot be in the future.");
-
-            RuleFor(sale => sale.Items)
-                .NotEmpty()
-                .WithMessage("Sale must contain at least one item.")
-                .Must(items => items != null && items.All(item => item.Quantity > 0))
-                .WithMessage("All items must have a quantity greater than zero.");
-
-            RuleForEach(sale => sale.Items)
-                .SetValidator(new SaleItemValidator());
+                .WithMessage("Sale date cannot be in the future.");            
         }
     }
 }

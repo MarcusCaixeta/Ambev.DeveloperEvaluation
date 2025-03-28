@@ -6,14 +6,13 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
     public class Sale : BaseEntity
     {
-        public Sale( long customerId, int companyBranchId, List<SaleItem> items, bool isCancelled)
+        public Sale(long customerId, int companyBranchId, bool isCancelled)
         {
             Date = DateTime.Now;
             CustomerId = customerId;
             CompanyBranchId = companyBranchId;
-            Items = items ?? throw new ArgumentNullException(nameof(items));
             IsCancelled = isCancelled;
-        }     
+        }
 
 
         /// <summary>
@@ -36,11 +35,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         /// Save branch company for sale
         /// </summary>
         public int CompanyBranchId { get; set; }
-        /// <summary>
-        /// Receive sale items 
-        /// Sabe Items for the sale
-        /// </summary>
-        public List<SaleItem> Items { get; set; }
+
         /// <summary>
         /// Staus sale
         /// saved status sale
@@ -81,7 +76,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             };
         }
 
-        public decimal CalculateTotal() => Items.Sum(item => item.CalculateTotal());
         public void Cancel() => IsCancelled = true;
     }
 }

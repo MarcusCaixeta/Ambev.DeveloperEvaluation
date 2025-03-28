@@ -25,7 +25,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
             .CustomInstantiator(f => new Sale(
                 customerId: GenerateSequentialNumberLong(),
                 companyBranchId: GenerateSequentialNumberInt(),
-                items: new List<SaleItem> { GenerateValidSaleItem() },
                 isCancelled: false
             ));
 
@@ -47,14 +46,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
 
         public static Sale GenerateValidSale(int itemCount = 1, bool isCancelled = false)
         {
-            var sale = SaleFaker.Generate();
-            sale.Items.Clear();
-
-            for (int i = 0; i < itemCount; i++)
-            {
-                sale.Items.Add(GenerateValidSaleItem(1,100));
-            }
-
+            var sale = SaleFaker.Generate();           
             sale.IsCancelled = isCancelled;
             return sale;
         }
@@ -78,7 +70,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         }
 
         public static Sale GenerateEmptySale() =>
-            new Sale(0, 0, new List<SaleItem>(), false);
+            new Sale(0, 0, false);
 
         public static Sale GenerateCancelledSale() =>
             GenerateValidSale(isCancelled: true);
@@ -88,7 +80,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
             return new Sale(
                 customerId: 0,
                 companyBranchId: 0,
-                items: new List<SaleItem>(),
                 isCancelled: false
             );
         }

@@ -48,7 +48,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             sale.Cancel();
 
             // Assert
-            Assert.True(sale.IsCancelled);
+            Assert.True(sale.IsSaleCancelled);
         }
     }
 }

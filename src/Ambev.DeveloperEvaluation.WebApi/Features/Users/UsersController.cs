@@ -12,7 +12,7 @@ using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
 
 /// <summary>
-/// Controller for managing user operations
+/// Controller for managing sale operations
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]

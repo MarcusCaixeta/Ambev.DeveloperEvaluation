@@ -47,7 +47,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             decimal expectedTotal = (item.UnitPrice * item.Quantity) * (1 - expectedDiscount);
 
             // Assert
-            item.Discount.Should().Be(expectedDiscount);
+            item.DiscountPercentual.Should().Be(expectedDiscount);
             item.CalculateTotal().Should().Be(expectedTotal);
         }
 
@@ -55,7 +55,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         public void SaleItem_ShouldThrowException_WhenQuantityExceedsLimit()
         {
             // Arrange & Act
-            var act = () => new SaleItem(1, "Product", 21, 100, false);
+            var act = () => new SaleItem(1, 21, 100, false);
 
             // Assert
             act.Should().Throw<InvalidOperationException>()
@@ -72,7 +72,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             sale.Cancel();
 
             // Assert
-            Assert.True(sale.IsCancelled);
+            Assert.True(sale.IsSaleItemCancelled);
         }
     }
 }

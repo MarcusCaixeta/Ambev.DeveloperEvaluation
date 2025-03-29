@@ -15,17 +15,16 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         private static readonly Faker<SaleItem> SaleItemFaker = new Faker<SaleItem>()
             .CustomInstantiator(f => new SaleItem(
                 productId: GenerateSequentialNumberLong(),
-                productDescription: f.Commerce.ProductName(),
                 quantity: f.Random.Int(1, 20),
                 unitPrice: f.Random.Decimal(10, 1000),
-                isCancelled: false
+                isSaleItemCancelled: false
             ));
 
         private static readonly Faker<Sale> SaleFaker = new Faker<Sale>()
             .CustomInstantiator(f => new Sale(
                 customerId: GenerateSequentialNumberLong(),
                 companyBranchId: GenerateSequentialNumberInt(),
-                isCancelled: false
+                isSaleCancelled: false
             ));
 
         private static long GenerateSequentialNumberLong()
@@ -47,7 +46,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         public static Sale GenerateValidSale(int itemCount = 1, bool isCancelled = false)
         {
             var sale = SaleFaker.Generate();           
-            sale.IsCancelled = isCancelled;
+            sale.IsSaleCancelled = isCancelled;
             return sale;
         }
 
@@ -59,10 +58,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
             {
                 item = new SaleItem(
                     productId: item.ProductId,
-                    productDescription: item.ProductDescription,
                     quantity: fixedQuantity ?? item.Quantity,
                     unitPrice: fixedPrice ?? item.UnitPrice,
-                isCancelled: false
+                isSaleItemCancelled: false
                 );
             }
 
@@ -80,7 +78,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
             return new Sale(
                 customerId: 0,
                 companyBranchId: 0,
-                isCancelled: false
+                isSaleCancelled: false
             );
         }
 
@@ -88,10 +86,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         {
             return new SaleItem(
                 productId: 0,
-                productDescription: "Invalid Product",
                 quantity: 21, // Quantidade inválida
                 unitPrice: 100,
-                isCancelled: false
+                isSaleItemCancelled: false
             );
         }
     }

@@ -1,9 +1,13 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
 {
+    /// <summary>
+    /// Implementation of ISaleRepository using Entity Framework Core
+    /// </summary>
     public class SaleRepository : ISaleRepository
     {
         private readonly DefaultContext _context;
@@ -16,11 +20,14 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         {
             _context = context;
         }
-
-        public Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Begins a new database transaction for sale operations
+        /// </summary>
+        /// <returns>An active database transaction</returns>
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            throw new NotImplementedException();
-        }
+            return await _context.Database.BeginTransactionAsync();
+        }      
 
         /// <summary>
         /// Retrieves a sale by their unique identifier
@@ -31,6 +38,19 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Sales.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        }
+
+        /// <summary>
+        /// Creates a new sale in the repository
+        /// </summary>
+        /// <param name="sale">The sale entity to create</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The created sale</returns>
+        public async Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
+        {
+            await _context.Sales.AddAsync(sale, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            return sale;
         }
     }
 }

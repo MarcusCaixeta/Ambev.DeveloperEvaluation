@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoMapper;
 
@@ -13,7 +13,10 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
      /// </summary>
         public GetSaleByIdProfile()
         {
+            CreateMap<GetSaleByIdCommand, Sale>();
             CreateMap<Sale, GetSaleByIdResult>();
+
+            CreateMap<SaleItem, GetSaleByIdItemResult>();
         }
     }
 }

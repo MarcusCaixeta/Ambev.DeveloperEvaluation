@@ -13,11 +13,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation
 
             RuleFor(sale => sale.CompanyBranchId)
                 .NotEmpty()
-                .WithMessage("Company branch ID cannot be empty.");
-
-            RuleFor(sale => sale.Date)
-                .LessThanOrEqualTo(DateTime.UtcNow)
-                .WithMessage("Sale date cannot be in the future.");            
+                .WithMessage("Company branch ID cannot be empty.");                      
         }
     }
 }

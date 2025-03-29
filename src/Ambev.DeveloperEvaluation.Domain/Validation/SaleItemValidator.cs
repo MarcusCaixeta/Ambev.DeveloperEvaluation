@@ -9,12 +9,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation
         {
             RuleFor(item => item.ProductId)
                 .NotEmpty()
-                .WithMessage("Product ID cannot be empty.");
-
-            RuleFor(item => item.ProductDescription)
-                .NotEmpty()
-                .MaximumLength(100)
-                .WithMessage("Product description cannot exceed 100 characters.");
+                .WithMessage("Product ID cannot be empty.");          
 
             RuleFor(item => item.Quantity)
                 .GreaterThan(0)
@@ -24,11 +19,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation
 
             RuleFor(item => item.UnitPrice)
                 .GreaterThan(0)
-                .WithMessage("Unit price must be greater than zero.");
-
-            RuleFor(item => item.Discount)
-                .InclusiveBetween(0, 0.5m)
-                .WithMessage("Discount must be between 0% and 50%.");          
+                .WithMessage("Unit price must be greater than zero.");                    
         }
     }
 }

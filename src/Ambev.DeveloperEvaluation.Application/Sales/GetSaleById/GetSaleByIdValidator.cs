@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
 {
+    /// <summary>
+    /// Validator for GetSaleByIdCommand
+    /// </summary>
     public class GetSaleByIdValidator : AbstractValidator<GetSaleByIdCommand>
     {
         /// <summary>
@@ -12,7 +15,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
         {
             RuleFor(x => x.Id)
                 .NotEmpty()
-                .WithMessage("User ID is required");
+                .WithMessage("Sale ID is required");
         }
     }
 }

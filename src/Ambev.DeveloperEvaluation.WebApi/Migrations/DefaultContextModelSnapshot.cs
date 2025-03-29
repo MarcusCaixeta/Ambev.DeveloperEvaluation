@@ -32,13 +32,13 @@ namespace Ambev.DeveloperEvaluation.WebApi.Migrations
                     b.Property<int>("CompanyBranchId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsCancelled")
+                    b.Property<bool>("IsSaleCancelled")
                         .HasColumnType("boolean");
 
                     b.Property<long>("SaleNumber")
@@ -47,6 +47,15 @@ namespace Ambev.DeveloperEvaluation.WebApi.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("SaleNumber"));
+
+                    b.Property<decimal>("TotalSale")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("TotalSaleAfterDiscount")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("TotalSaleDiscount")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -63,18 +72,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(5,4)");
-
-                    b.Property<bool>("IsCancelled")
+                    b.Property<bool>("IsSaleItemCancelled")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(false);
-
-                    b.Property<string>("ProductDescription")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
 
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");

@@ -9,10 +9,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         private static readonly Faker<SaleItem> SaleItemFaker = new Faker<SaleItem>()
             .CustomInstantiator(f => new SaleItem(
                 productId: 1,
-                productDescription: f.Commerce.ProductName(),
                 quantity: f.Random.Int(1, 20),
                 unitPrice: f.Random.Decimal(10, 1000),
-                isCancelled: false
+                isSaleItemCancelled: false
             ));
 
         public static SaleItem GenerateValidSaleItem(int? fixedQuantity = null, decimal? fixedPrice = null)
@@ -23,14 +22,11 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
             {
                 item = new SaleItem(
                     productId: item.ProductId,
-                    productDescription: item.ProductDescription,
                     quantity: fixedQuantity ?? item.Quantity,
                     unitPrice: fixedPrice ?? item.UnitPrice,
-                isCancelled: false
+                isSaleItemCancelled: false
                 );
-            }
-
-            item.ApplyDiscount();
+            }            
             return item;
         }
 
@@ -38,10 +34,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         {
             return new SaleItem(
                 productId: 0,
-                productDescription: "",
                 quantity: 0,
                 unitPrice: -10,
-                isCancelled: false
+                isSaleItemCancelled: false
             );
         }
 
@@ -49,10 +44,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         {
             return new SaleItem(
                 productId: 1,
-                productDescription: "Bulk Discount Test",
                 quantity: 15, 
                 unitPrice: 100,
-                isCancelled: false
+                isSaleItemCancelled: false
             );
         }
     }

@@ -1,11 +1,14 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
-using Ambev.DeveloperEvaluation.Domain.Repositories;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using FluentValidation;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
 {
+    /// <summary>
+    /// Handler for processing GetSaleByIdCommand requests
+    /// </summary>
     public class GetSaleByIdHandler : IRequestHandler<GetSaleByIdCommand, GetSaleByIdResult>
     {
         private readonly ISaleRepository _saleRepository;
@@ -23,7 +26,12 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
             _saleRepository = saleRepository;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Handles the GetSaleByIdCommand request
+        /// </summary>
+        /// <param name="request">The GetSaleById command</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The sale details if found</returns>
         public async Task<GetSaleByIdResult> Handle(GetSaleByIdCommand request, CancellationToken cancellationToken)
         {
             var validator = new GetSaleByIdValidator();
@@ -35,7 +43,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
             if (sale == null)
                 throw new KeyNotFoundException($"Sale with ID {request.Id} not found");
 
-            return _mapper.Map<GetSaleByIdResult>(sale);
+            var result = _mapper.Map<GetSaleByIdResult>(sale);
+
+            return result;
         }
     }
 }

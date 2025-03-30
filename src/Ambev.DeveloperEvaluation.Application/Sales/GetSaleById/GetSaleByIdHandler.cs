@@ -12,6 +12,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
     public class GetSaleByIdHandler : IRequestHandler<GetSaleByIdCommand, GetSaleByIdResult>
     {
         private readonly ISaleRepository _saleRepository;
+        private readonly ISaleItemRepository _saleItemRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -21,9 +22,11 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
         /// <param name="mapper">The AutoMapper instance</param>
         public GetSaleByIdHandler(
             ISaleRepository saleRepository,
+            ISaleItemRepository saleItemRepository,
             IMapper mapper)
         {
             _saleRepository = saleRepository;
+            _saleItemRepository = saleItemRepository;
             _mapper = mapper;
         }
         /// <summary>
@@ -40,10 +43,12 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
                 throw new ValidationException(validationResult.Errors);
 
             var sale = await _saleRepository.GetByIdAsync(request.Id, cancellationToken);
-            if (sale == null)
+            var saleItem = await _saleItemRepository.GetBySaleByIdAsync(request.Id, cancellationToken);
+            if (sale == null || saleItem == null)
                 throw new KeyNotFoundException($"Sale with ID {request.Id} not found");
 
             var result = _mapper.Map<GetSaleByIdResult>(sale);
+             result.Items = _mapper.Map<List<GetSaleByIdItemResult>>(saleItem);
 
             return result;
         }

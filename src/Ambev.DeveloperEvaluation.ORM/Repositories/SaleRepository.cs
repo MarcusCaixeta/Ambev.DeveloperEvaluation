@@ -27,7 +27,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
             return await _context.Database.BeginTransactionAsync();
-        }      
+        }
 
         /// <summary>
         /// Retrieves a sale by their unique identifier
@@ -68,6 +68,26 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context.Sales.Remove(sale);
             await _context.SaveChangesAsync(cancellationToken);
             return true;
+        }
+
+        /// <summary>
+        /// update sale in the repository
+        /// </summary>
+        /// <param name="sale">The sale entity to update</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The updated sale</returns>
+        public async Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default)
+        {
+            var existingSale = await GetByIdAsync(sale.Id, cancellationToken);
+            if (existingSale == null)
+                throw new KeyNotFoundException("Sale not found.");
+
+            sale.CreatedAt = existingSale.CreatedAt;
+
+            _context.Entry(existingSale).CurrentValues.SetValues(sale);
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return sale;
         }
     }
 }

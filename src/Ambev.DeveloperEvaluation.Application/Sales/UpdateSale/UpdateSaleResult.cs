@@ -1,19 +1,19 @@
 ﻿
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
+namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 {
     /// <summary>
-    /// Represents the response returned after successfully select by id sale.
+    /// Represents the response returned after successfully update sale.
     /// </summary>
     /// <remarks>
-    /// This response contains the unique identifier of the  sale,
+    /// This response contains the unique identifier of the update sale,
     /// which can be used for subsequent operations or reference.
     /// </remarks>
-    public class GetSaleByIdResponse
+    public class UpdateSaleResult
     {
         /// <summary>
-        /// Gets or sets the unique identifier of the sale.
+        /// Gets or sets the unique identifier of the update sale.
         /// </summary>
-        /// <value>A GUID that uniquely identifies the  sale in the system.</value>
+        /// <value>A GUID that uniquely identifies the update sale in the system.</value>
         public Guid Id { get; set; }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
         public long SaleNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets the date when the sale was created.
+        /// Gets or sets the date when the sale was Create.
         /// </summary>
         public DateTime CreatedAt { get; set; }
 
@@ -41,7 +41,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
         /// </summary>
         public decimal TotalSale { get; set; }
 
-        // <summary>
+        /// <summary>
         /// Gets the total discount applied to the sale.
         /// </summary>
         public decimal TotalSaleDiscount { get; set; }
@@ -63,21 +63,21 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
         /// The `Items` collection holds the individual items involved in the sale. Each item in this collection
         /// is validated based on specific rules, including checks for quantity, unit price, and discounts.
         /// </remarks>
-        public List<GetSaleByIdItemResponse> Items { get; set; }
+        public List<UpdateSaleItemResult> Items { get; set; }
     }
 
-    public class GetSaleByIdItemResponse
+    public class UpdateSaleItemResult
     {
         /// <summary>
-        /// Gets or sets the unique identifier of the  item sale.
+        /// Gets or sets the unique identifier of the Update item sale.
         /// </summary>
-        /// <value>A GUID that uniquely identifies the item sale in the system.</value>
+        /// <value>A GUID that uniquely identifies the Update item sale in the system.</value>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier of the  sale.
+        /// Gets or sets the unique identifier of the update sale.
         /// </summary>
-        /// <value>A GUID that uniquely identifies the sale in the system.</value>
+        /// <value>A GUID that uniquely identifies the update sale in the system.</value>
         public Guid SaleId { get; set; }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
         /// </summary>
         public decimal UnitAfterDiscountPrice { get; set; }
 
-        // <summary>
+        /// <summary>
         /// Gets the total amount for the sale item not considering the discount.
         /// </summary>
         public decimal TotaSalelItem { get; set; }
@@ -119,6 +119,11 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
         /// Gets the total sale item value after applying the discount.
         /// </summary>
         public decimal TotalSaleItemAfterDiscount { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the sale item has been cancelled.
+        /// </summary>
         public bool IsSaleItemCancelled { get; set; }
+
     }
 }

@@ -1,12 +1,20 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
-
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale
 {
     /// <summary>
-    /// Represents a request to create a new sale in the system.
+    /// Represents a request to update a sale in the system.
     /// </summary>
-    public class CreateSaleRequest
+    public class UpdateSaleRequest
     {
+        /// <summary>
+        /// The unique identifier of the sale
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sale number, which serves as the sale's unique identifier.
+        /// </summary>
+        public long SaleNumber { get; set; }
+
         /// <summary>
         /// Gets or sets the customer ID associated with the sale.
         /// </summary>
@@ -18,6 +26,11 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         public int CompanyBranchId { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the sale is cancelled.
+        /// </summary>
+        public bool IsSaleCancelled { get; set; }
+
+        /// <summary>
         /// Gets or sets the collection of sale items associated with the sale.
         /// </summary>
         /// <remarks>
@@ -25,11 +38,21 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// is validated based on specific rules, including checks for quantity, unit price, and discounts.
         /// 
         /// </remarks>
-        public List<CreateSaleItemRequest> Items { get; set; }
+        public List<UpdateSaleItemRequest> Items { get; set; }
     }
 
-    public class CreateSaleItemRequest
+    public class UpdateSaleItemRequest
     {
+        /// <summary>
+        /// The unique identifier of the Item sale
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// The unique identifier of the  sale
+        /// </summary>
+        public Guid SaleId { get; set; }
+
         /// <summary>
         /// Gets or sets the unique identifier of the sold product.
         /// </summary>
@@ -44,5 +67,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// Gets or sets the unit price of the sold product.
         /// </summary>
         public decimal UnitPrice { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the saleitem is cancelled.
+        /// </summary>
+        public bool IsSaleItemCancelled { get; set; }
     }
 }

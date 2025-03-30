@@ -22,5 +22,13 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The created sale items</returns>
         Task<List<SaleItem>> CreateManyAsync(List<SaleItem> saleItems, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update multiple sale items in the repository
+        /// </summary>
+        /// <param name="saleItems">The list of sale items to update</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The update sale items</returns>
+        Task<List<SaleItem>> UpdateManyAsync(List<SaleItem> saleItems, CancellationToken cancellationToken);
     }
 }

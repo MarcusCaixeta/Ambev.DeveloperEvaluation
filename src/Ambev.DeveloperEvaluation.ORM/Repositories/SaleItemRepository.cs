@@ -44,5 +44,41 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             await _context.SaveChangesAsync(cancellationToken);
             return saleItems;
         }
+
+        /// <summary>
+        /// Update multiple sale items in the repository.
+        /// </summary>
+        /// <param name="saleItems">The list of sale items to update.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The updated sale items.</returns>
+        public async Task<List<SaleItem>> UpdateManyAsync(List<SaleItem> saleItems, CancellationToken cancellationToken = default)
+        {
+            if (saleItems == null || !saleItems.Any())
+                throw new ArgumentException("The list of sale items cannot be empty.");
+
+            var itemIds = saleItems.Select(si => si.Id).ToList();
+
+            // Busca todos os itens de venda de uma vez
+            var existingItems = await _context.SaleItems
+                                              .Where(si => itemIds.Contains(si.Id))
+                                              .ToListAsync(cancellationToken);
+
+            if (existingItems.Count != saleItems.Count)
+                throw new KeyNotFoundException("One or more SaleItems were not found.");
+
+            // Atualiza os valores de cada item existente
+            foreach (var item in saleItems)
+            {
+                var existingItem = existingItems.FirstOrDefault(e => e.Id == item.Id);
+                if (existingItem != null)
+                {
+                    _context.Entry(existingItem).CurrentValues.SetValues(item);
+                }
+            }
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return saleItems;
+        }
+
     }
 }

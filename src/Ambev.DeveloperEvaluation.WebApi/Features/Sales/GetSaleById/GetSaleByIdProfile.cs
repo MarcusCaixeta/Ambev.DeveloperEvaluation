@@ -20,7 +20,6 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
 
             CreateMap<GetSaleByIdResult, GetSaleByIdResponse>();
             CreateMap<GetSaleByIdItemResult, GetSaleByIdItemResponse>();
-
         }
     }
 }

@@ -37,5 +37,13 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>True if the sale was deleted, false if not found</returns>
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update sale in the repository
+        /// </summary>
+        /// <param name="sale">The sale entity to create</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The created sale</returns>
+        Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default);
     }
 }

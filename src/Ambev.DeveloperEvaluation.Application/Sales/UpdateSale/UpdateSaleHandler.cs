@@ -49,7 +49,17 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 
             var updatedSale = await _saleRepository.UpdateAsync(sale, cancellationToken);
 
+            if (sale.IsSaleCancelled)
+                saleItems.ForEach(item => item.Cancel());
+            else
+            {
+                bool allItemsCancelled = saleItems.All(item => item.IsSaleItemCancelled);
+                if (allItemsCancelled)
+                    sale.Cancel();
+            }
+
             saleItems.ForEach(item => item.SaleId = updatedSale.Id);
+
             var updatedSaleItems = await _saleItemRepository.UpdateManyAsync(saleItems, cancellationToken);
 
             var result = _mapper.Map<UpdateSaleResult>(updatedSale);

@@ -4,7 +4,7 @@ using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
 using FluentAssertions;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
+namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Tests
 {
     public class SaleItemTests
     {
@@ -43,23 +43,12 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             var item = SaleItemTestData.GenerateSaleItemWithHighDiscount();
 
             // Act
-            decimal expectedDiscount = 0.20m; // Para quantidade >= 10
+            decimal expectedDiscount = 0.20m;
             decimal expectedTotal = (item.UnitPrice * item.Quantity) * (1 - expectedDiscount);
 
             // Assert
             item.DiscountPercentual.Should().Be(expectedDiscount);
-            item.CalculateTotal().Should().Be(expectedTotal);
-        }
-
-        [Fact]
-        public void SaleItem_ShouldThrowException_WhenQuantityExceedsLimit()
-        {
-            // Arrange & Act
-            var act = () => new SaleItem(1, 21, 100, false);
-
-            // Assert
-            act.Should().Throw<InvalidOperationException>()
-                .WithMessage("Cannot sell more than 20 identical items.");
+            item.CalculateTotalAfterDiscount().Should().Be(expectedTotal);
         }
 
         [Fact(DisplayName = "Sale should be marked as cancelled when Cancel is called")]

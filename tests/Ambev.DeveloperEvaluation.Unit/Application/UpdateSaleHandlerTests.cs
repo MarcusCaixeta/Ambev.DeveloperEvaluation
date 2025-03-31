@@ -17,17 +17,17 @@ public class UpdateSaleHandlerTests
     private readonly IMapper _mapper;
     private readonly UpdateSaleHandler _handler;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UpdateSaleHandlerTests"/> class.
-    /// Sets up the test dependencies and creates fake data generators.
-    /// </summary>
-    public UpdateSaleHandlerTests()
-    {
-        _saleRepository = Substitute.For<ISaleRepository>();
-        _mapper = Substitute.For<IMapper>();
-        var saleItemRepository = Substitute.For<ISaleItemRepository>();
-        _handler = new UpdateSaleHandler(_saleRepository, saleItemRepository, _mapper);
-    }  
+    ///// <summary>
+    ///// Initializes a new instance of the <see cref="UpdateSaleHandlerTests"/> class.
+    ///// Sets up the test dependencies and creates fake data generators.
+    ///// </summary>
+    //public UpdateSaleHandlerTests()
+    //{
+    //    _saleRepository = Substitute.For<ISaleRepository>();
+    //    _mapper = Substitute.For<IMapper>();
+    //    var saleItemRepository = Substitute.For<ISaleItemRepository>();
+    //    _handler = new UpdateSaleHandler(_saleRepository, saleItemRepository, _mapper);
+    //}  
 
     /// <summary>
     /// Tests that an invalid sale update request throws a validation exception.

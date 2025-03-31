@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Application.Common.Interfaces;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
@@ -14,18 +15,24 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         private readonly ISaleRepository _saleRepository;
         private readonly ISaleItemRepository _saleItemRepository;
         private readonly IMapper _mapper;
+        private readonly IMessagingService _messagingService;
+
         /// <summary>
         /// Initializes a new instance of CreateSaleHandler
         /// </summary>
         /// <param name="saleRepository">The sale repository</param>
         /// <param name="saleItemRepository">The saleitem repository</param>
         /// <param name="mapper">The AutoMapper instance</param>
-        public CreateSaleHandler(ISaleRepository saleRepository, ISaleItemRepository saleItemRepository, IMapper mapper)
+        /// <param name="messagingService">The Service Message</param>        
+        public CreateSaleHandler(ISaleRepository saleRepository, ISaleItemRepository saleItemRepository, IMapper mapper, IMessagingService messagingService)
         {
             _saleRepository = saleRepository;
             _saleItemRepository = saleItemRepository;
             _mapper = mapper;
+            _messagingService = messagingService;
+
         }
+
         /// <summary>
         /// Handles the CreateSaleCommand request
         /// </summary>
@@ -52,6 +59,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 
             var result = _mapper.Map<CreateSaleResult>(createdSale);
             result.Items = _mapper.Map<List<CreateSaleItemResult>>(createdSaleItems);
+
+            var saleCreatedEvent = new SaleCreatedEvent(sale);
+            await _messagingService.Publish("sale_created_queue", saleCreatedEvent);
 
             return result;
 

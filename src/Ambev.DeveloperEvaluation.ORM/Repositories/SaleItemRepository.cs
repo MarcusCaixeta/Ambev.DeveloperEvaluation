@@ -58,7 +58,6 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
 
             var itemIds = saleItems.Select(si => si.Id).ToList();
 
-            // Busca todos os itens de venda de uma vez
             var existingItems = await _context.SaleItems
                                               .Where(si => itemIds.Contains(si.Id))
                                               .ToListAsync(cancellationToken);
@@ -66,7 +65,6 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             if (existingItems.Count != saleItems.Count)
                 throw new KeyNotFoundException("One or more SaleItems were not found.");
 
-            // Atualiza os valores de cada item existente
             foreach (var item in saleItems)
             {
                 var existingItem = existingItems.FirstOrDefault(e => e.Id == item.Id);

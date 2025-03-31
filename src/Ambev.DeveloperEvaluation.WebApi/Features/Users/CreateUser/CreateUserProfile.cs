@@ -1,5 +1,8 @@
 using AutoMapper;
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.CreateUser;
 
@@ -15,5 +18,8 @@ public class CreateUserProfile : Profile
     {
         CreateMap<CreateUserRequest, CreateUserCommand>();
         CreateMap<CreateUserResult, CreateUserResponse>();
+
+        CreateMap<User, CreateUserResult>();
+
     }
 }

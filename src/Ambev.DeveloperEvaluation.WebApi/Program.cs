@@ -51,6 +51,10 @@ public class Program
             });
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddTransient<INotificationHandler<SaleCreatedEvent>, SaleCreatedEventHandler>();
+            builder.Services.AddTransient<INotificationHandler<SaleModifiedEvent>, SaleModifiedEventHandler>();
+            builder.Services.AddTransient<INotificationHandler<SaleCancelledEvent>, SaleCancelledEventHandler>();
+            builder.Services.AddTransient<INotificationHandler<SaleItemCancelledEvent>, SaleItemCancelledEventHandler>();
 
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
